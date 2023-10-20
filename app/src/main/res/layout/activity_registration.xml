@@ -30,6 +30,7 @@
 
             <TextView
                 android:text="@string/registration"
+                android:layout_marginTop="5dp"
                 android:textSize="25sp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
