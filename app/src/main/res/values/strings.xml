@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ItTestApplication</string>
+    <string name="ok">Oк</string>
+    <string name="registration">Регистрация</string>
+    <string name="password">Пароль</string>
+    <string name="login">Логин</string>
+    <string name="auth">Авторизация</string>
+    <string name="name">Имя</string>
+    <string name="repeatPassword">Повторите пароль</string>
+    <string name="back">Назад</string>
 </resources>
