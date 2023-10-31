@@ -6,5 +6,6 @@ data class Answer(
     @SerializedName("answer_id"   ) var answerId   : Int?    = null,
     @SerializedName("question_id" ) var questionId : Int?    = null,
     @SerializedName("answer"      ) var answer     : String? = null,
-    @SerializedName("points"      ) var points     : Int?    = null
+    @SerializedName("points"      ) var points     : Int?    = null,
+    var isSelected: Boolean
 )

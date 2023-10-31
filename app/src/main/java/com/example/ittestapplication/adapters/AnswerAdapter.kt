@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ittestapplication.databinding.AnswerRecyclerItemBinding
 import com.example.ittestapplication.model.Answer
 
+
 class AnswerAdapter(
 ): RecyclerView.Adapter<AnswerAdapter.ViewHolder>() {
 
     private var answersList =  ArrayList<Answer>()
     var onItemClick: ((Answer) -> Unit)? = null
-
-
+    private var isNewRadioButtonChecked = false
+    private var lastCheckedPosition = -1
 
     fun setAnswersList(answersList : List<Answer>){
         this.answersList = answersList as ArrayList<Answer>
@@ -23,6 +24,13 @@ class AnswerAdapter(
 
     }
 
+    private fun handleRadioButtonChecks(adapterPosition: Int) {
+        isNewRadioButtonChecked = true
+        answersList[lastCheckedPosition].isSelected = false
+        answersList[adapterPosition].isSelected = true
+        lastCheckedPosition = adapterPosition
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -38,9 +46,20 @@ class AnswerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.answerRadioButton.text = answersList[position].answer.toString()
 
-        holder.binding.answerRadioButton.setOnClickListener{
-            onItemClick!!.invoke(answersList[position])
+        if(isNewRadioButtonChecked){
+            holder.binding.answerRadioButton.isChecked = answersList[position].isSelected
+        } else{
+            if (holder.adapterPosition == 0){
+                lastCheckedPosition = 0
+            }
         }
+
+        holder.binding.answerRadioButton.setOnClickListener {
+            handleRadioButtonChecks(holder.adapterPosition)
+            onItemClick!!.invoke(answersList[position])
+
+        }
+
     }
 
 
