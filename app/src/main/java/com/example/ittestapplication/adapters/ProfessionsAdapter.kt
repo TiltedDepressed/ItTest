@@ -8,17 +8,16 @@ import com.example.ittestapplication.databinding.ProfessionsRecyclerItemBinding
 import com.example.ittestapplication.model.Professions
 
 class ProfessionsAdapter(
-    private val professionsList: List<Professions>
 ): RecyclerView.Adapter<ProfessionsAdapter.ViewHolder>() {
 
-  //  private var professionsList =  ArrayList<Professions>()
+    private var professionsList =  ArrayList<Professions>()
     var onItemClick: ((Professions) -> Unit)? = null
 
 
-//    fun setProfessionsList(professionsList : List<Professions>){
-//        this.professionsList = professionsList as ArrayList<Professions>
-//        notifyDataSetChanged()
-//    }
+    fun setProfessionsList(professionsList : List<Professions>){
+        this.professionsList = professionsList as ArrayList<Professions>
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(val binding: ProfessionsRecyclerItemBinding):RecyclerView.ViewHolder(binding.root){
 
@@ -38,7 +37,7 @@ class ProfessionsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.professionButton.text = professionsList[position].profName.toString()
 
-        holder.itemView.setOnClickListener{
+        holder.binding.professionButton.setOnClickListener{
             onItemClick!!.invoke(professionsList[position])
         }
     }

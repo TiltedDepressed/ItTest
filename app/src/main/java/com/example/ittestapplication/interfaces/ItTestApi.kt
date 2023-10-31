@@ -1,5 +1,6 @@
 package com.example.ittestapplication.interfaces
 
+import com.example.ittestapplication.model.Answer
 import com.example.ittestapplication.model.ApiResponse
 import com.example.ittestapplication.model.Professions
 import com.example.ittestapplication.model.Question
@@ -37,10 +38,15 @@ interface ItTestApi {
 
     @Headers("Content-Type:application/json")
     @GET("questions/professions/{prof_id}")
-    fun getQuestionsById(@Path("prof_id") prof_id:Int) : Call<ApiResponse<Question>>
+    fun getQuestionsById(@Path("prof_id") id:String) : Call<ApiResponse<Question>>
 
     //Professions
     @Headers("Content-Type:application/json")
     @GET("professions")
     fun getAllProfessions(): Call<ApiResponse<Professions>>
+
+    //Answers
+    @Headers("Content-Type:application/json")
+    @GET("answers/{question_id}")
+    fun getAnswerByQuestionId(@Path("question_id") id : String) : Call<ApiResponse<Answer>>
 }
