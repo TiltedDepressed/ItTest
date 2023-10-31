@@ -25,6 +25,7 @@ class RegistrationActivity : AppCompatActivity() {
         binding.goBackButton.setOnClickListener {
             val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.registrationButton.setOnClickListener {
@@ -52,6 +53,7 @@ class RegistrationActivity : AppCompatActivity() {
                         if (response.body()!!.success == true) {
                             val intent = Intent(this@RegistrationActivity, AuthActivity::class.java)
                             startActivity(intent)
+                            finish()
                         } else {
                             Toast.makeText(
                                 this@RegistrationActivity,

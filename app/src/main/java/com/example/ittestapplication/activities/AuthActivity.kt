@@ -25,6 +25,7 @@ class AuthActivity : AppCompatActivity() {
         binding.registrationButton.setOnClickListener{
             val intent = Intent(this,RegistrationActivity::class.java)
             startActivity(intent)
+            finish()
         }
         binding.signInButton.setOnClickListener{
             authorization()
@@ -44,6 +45,7 @@ class AuthActivity : AppCompatActivity() {
                     if (response.body()!!.success == true){
                         val intent = Intent(this@AuthActivity,MainActivity::class.java)
                         startActivity(intent)
+                        finish()
                     } else{
                         Toast.makeText(this@AuthActivity, "User does not exist.", Toast.LENGTH_SHORT).show()
                     }

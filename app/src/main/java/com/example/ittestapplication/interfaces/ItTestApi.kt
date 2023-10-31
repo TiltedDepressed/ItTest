@@ -49,4 +49,13 @@ interface ItTestApi {
     @Headers("Content-Type:application/json")
     @GET("answers/{question_id}")
     fun getAnswerByQuestionId(@Path("question_id") id : String) : Call<ApiResponse<Answer>>
+
+    //results
+//    @Headers("Content-Type:application/json")
+//    @POST("results/")
+//    fun createResult(
+//        @Query("user_login")  login : String,
+//        @Query("prof_id") profId: String,
+//        @Query("result_test") resultTest: String
+//    ) : ApiResponse<>
 }

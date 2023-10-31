@@ -1,6 +1,7 @@
 package com.example.ittestapplication.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,9 +13,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ittestapplication.adapters.AnswerAdapter
 import com.example.ittestapplication.databinding.ActivityQuestionBinding
+import com.example.ittestapplication.model.Answer
 import com.example.ittestapplication.viewModel.QuestionViewModel
 
 class QuestionActivity : AppCompatActivity() {
+
+    companion object{
+        const val POINTS = "total_points"
+        const val PROFESSION_ID = "prof_id"
+    }
+
     private lateinit var binding: ActivityQuestionBinding
     private lateinit var questionViewModel: QuestionViewModel
     private lateinit var answerAdapter: AnswerAdapter
@@ -41,9 +49,11 @@ class QuestionActivity : AppCompatActivity() {
 
 
         }
-
-    private fun onAnswerClick() {
-        answerAdapter.onItemClick = {}
+    private fun onAnswerClick(): Int {
+        answerAdapter.onItemClick = {answer ->
+          totalPoints += answer.points!!
+        }
+        return totalPoints
     }
 
     private fun prepareRecyclerView() {
@@ -69,6 +79,7 @@ class QuestionActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun observeQuestionLiveData(counter:Int) {
+            val profId = intent.getStringExtra(MainActivity.PROFESSION_ID)!!
             questionViewModel.observerQuestionsLiveData().observe(
                 this
             ) { questionList ->
@@ -78,7 +89,11 @@ class QuestionActivity : AppCompatActivity() {
                     questionViewModel.getAnswersByQuestionId(questionList[counter].questionId.toString())
                 }
                 else{
-                    Toast.makeText(this, "$points", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "End", Toast.LENGTH_SHORT).show()
+                    intent = Intent(this@QuestionActivity,QuestionEndActivity::class.java)
+                    intent.putExtra(PROFESSION_ID,profId)
+                    startActivity(intent)
+
                 }
             }
     }
