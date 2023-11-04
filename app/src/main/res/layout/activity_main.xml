@@ -7,52 +7,67 @@
     android:background="@color/violet"
     tools:context=".activities.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/container"
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <ImageView
-            android:id="@+id/logoImageView"
-            android:layout_gravity="center"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/logo"
-            >
-
-        </ImageView>
-
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
+            android:id="@+id/container"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/logoImageView"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:textSize="23dp"
-            android:text="Выберите профессию по которой \n хотите пройти тест"
-            >
+            android:layout_height="match_parent">
 
-        </TextView>
+            <ImageView
+                android:id="@+id/logoImageView"
+                android:layout_gravity="center"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/logo"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/logoImageView"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textSize="23dp"
+                android:text="Выберите профессию по которой \n хотите пройти тест"
+                >
+
+            </TextView>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewProfessions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewProfessions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center">
 
-        </androidx.recyclerview.widget.RecyclerView>
-
-
-    </LinearLayout>
+            </androidx.recyclerview.widget.RecyclerView>
 
 
+            <Button
+                android:id="@+id/logOutBtn"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                app:cornerRadius="10dp"
+                android:layout_gravity="center"
+                android:text="@string/logout"
+                android:backgroundTint="@color/black"
+                >
+
+            </Button>
 
 
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

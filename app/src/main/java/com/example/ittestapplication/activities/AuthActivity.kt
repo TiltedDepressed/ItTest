@@ -1,6 +1,8 @@
 package com.example.ittestapplication.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -17,10 +19,14 @@ import retrofit2.Response
 class AuthActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLaunchBinding
+    private lateinit var userList : ArrayList<User>
+    private lateinit var sharePreference: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLaunchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        autoLogIn()
 
         binding.registrationButton.setOnClickListener{
             val intent = Intent(this,RegistrationActivity::class.java)
@@ -29,6 +35,18 @@ class AuthActivity : AppCompatActivity() {
         }
         binding.signInButton.setOnClickListener{
             authorization()
+        }
+    }
+
+    private fun autoLogIn() {
+        sharePreference = getSharedPreferences("MY_PRE",Context.MODE_PRIVATE)
+        val getUserLogin = sharePreference.getString("LOGIN","")
+        val getUserPassword = sharePreference.getString("PASSWORD","")
+        if(getUserLogin != "" && getUserPassword != ""){
+            Toast.makeText(this, "auto-log-in", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@AuthActivity,MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -43,6 +61,11 @@ class AuthActivity : AppCompatActivity() {
                     response: Response<ApiResponse<User>>
                 ) {
                     if (response.body()!!.success == true){
+                        val editor: SharedPreferences.Editor = sharePreference.edit()
+                        userList = response.body()!!.data as ArrayList<User>
+                        editor.putString("LOGIN",userList[0].login)
+                        editor.putString("PASSWORD",userList[0].password)
+                        editor.apply()
                         val intent = Intent(this@AuthActivity,MainActivity::class.java)
                         startActivity(intent)
                         finish()

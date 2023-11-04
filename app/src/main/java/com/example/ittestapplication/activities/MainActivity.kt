@@ -1,6 +1,8 @@
 package com.example.ittestapplication.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var professionsAdapter: ProfessionsAdapter
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var sharePreference: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -42,6 +45,16 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getProfessions()
         onProfessionClick()
 
+        binding.logOutBtn.setOnClickListener {
+            sharePreference = getSharedPreferences("MY_PRE",Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = sharePreference.edit()
+            editor.clear()
+            editor.apply()
+            val intent = Intent(this@MainActivity,AuthActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     private fun onProfessionClick() {
@@ -54,9 +67,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun prepareRecyclerView() {
+        val myGridLayoutManager = object : GridLayoutManager(this,2, VERTICAL,false) {
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
         professionsAdapter = ProfessionsAdapter()
         binding.recyclerViewProfessions.apply {
-            layoutManager = GridLayoutManager(context,2,GridLayoutManager.VERTICAL,false)
+            layoutManager = myGridLayoutManager
             adapter = professionsAdapter
         }
     }

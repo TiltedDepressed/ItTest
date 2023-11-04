@@ -8,4 +8,5 @@
     <string name="name">Имя</string>
     <string name="repeatPassword">Повторите пароль</string>
     <string name="back">Назад</string>
+    <string name="logout">LogOut</string>
 </resources>
