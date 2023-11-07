@@ -64,9 +64,11 @@ class MainActivity : AppCompatActivity() {
         val getUserRole = sharePreference.getString("ROLE","")
         if(getUserRole!!.toInt() == 2){
             binding.adminButton.visibility = View.VISIBLE
-            val intent = Intent(this@MainActivity,AdminActivity::class.java)
-            startActivity(intent)
-            finish()
+            binding.adminButton.setOnClickListener {
+                val intent = Intent(this@MainActivity,AdminActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

@@ -3,6 +3,7 @@
     <style name="Base.Theme.ItTestApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/violet</item>
     </style>
 
     <style name="Theme.ItTestApplication" parent="Base.Theme.ItTestApplication" />
