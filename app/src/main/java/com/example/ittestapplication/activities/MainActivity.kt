@@ -3,8 +3,10 @@ package com.example.ittestapplication.activities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -54,7 +56,18 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+     adminButtonView()
+    }
 
+    private fun adminButtonView() {
+        sharePreference = getSharedPreferences("MY_PRE",Context.MODE_PRIVATE)
+        val getUserRole = sharePreference.getString("ROLE","")
+        if(getUserRole!!.toInt() == 2){
+            binding.adminButton.visibility = View.VISIBLE
+            val intent = Intent(this@MainActivity,AdminActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun onProfessionClick() {

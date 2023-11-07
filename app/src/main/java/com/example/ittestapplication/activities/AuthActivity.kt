@@ -42,7 +42,8 @@ class AuthActivity : AppCompatActivity() {
         sharePreference = getSharedPreferences("MY_PRE",Context.MODE_PRIVATE)
         val getUserLogin = sharePreference.getString("LOGIN","")
         val getUserPassword = sharePreference.getString("PASSWORD","")
-        if(getUserLogin != "" && getUserPassword != ""){
+        val getUserRole = sharePreference.getString("ROLE","")
+        if(getUserLogin != "" && getUserPassword != "" && getUserRole != ""){
             Toast.makeText(this, "auto-log-in", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@AuthActivity,MainActivity::class.java)
             startActivity(intent)
@@ -65,6 +66,7 @@ class AuthActivity : AppCompatActivity() {
                         userList = response.body()!!.data as ArrayList<User>
                         editor.putString("LOGIN",userList[0].login)
                         editor.putString("PASSWORD",userList[0].password)
+                        editor.putString("ROLE",userList[0].role.toString())
                         editor.apply()
                         val intent = Intent(this@AuthActivity,MainActivity::class.java)
                         startActivity(intent)

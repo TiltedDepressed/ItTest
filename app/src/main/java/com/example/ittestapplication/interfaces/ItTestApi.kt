@@ -40,6 +40,13 @@ interface ItTestApi {
     @GET("questions/professions/{prof_id}")
     fun getQuestionsById(@Path("prof_id") id:String) : Call<ApiResponse<Question>>
 
+    @Headers("Content-Type:application/json")
+    @POST("questions")
+    fun addQuestionByProfId(
+        @Query("question") questionText: String,
+        @Query("prof_Id")  profId: String
+    ): Call<ApiResponse<Question>>
+
     //Professions
     @Headers("Content-Type:application/json")
     @GET("professions")
@@ -49,6 +56,14 @@ interface ItTestApi {
     @Headers("Content-Type:application/json")
     @GET("answers/{question_id}")
     fun getAnswerByQuestionId(@Path("question_id") id : String) : Call<ApiResponse<Answer>>
+
+    @Headers("Content-Type:application/json")
+    @POST("answers")
+    fun addAnswerByQuestionId(
+        @Query("question_id") questionId: String,
+        @Query("answer") answer: String,
+        @Query("points") points: String,
+    ): Call<ApiResponse<Answer>>
 
     //results
 //    @Headers("Content-Type:application/json")
